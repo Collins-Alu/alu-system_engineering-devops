@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+x#!/usr/bin/env bash
 # Installs and configures HAProxy on a new Ubuntu machine
 # to distribute traffic to web-01 and web-02 using roundrobin
 
