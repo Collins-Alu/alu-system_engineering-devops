@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>404 — Lost in the Void</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0c;
+    --text: #e8e4dc;
+    --accent: #ff6b35;
+    --muted: #4a4a52;
+    --dim: #2a2a30;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Mono', monospace;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      linear-gradient(90deg, var(--dim) 1px, transparent 1px),
+      linear-gradient(var(--dim) 1px, transparent 1px);
+    background-size: 80px 80px;
+    opacity: 0.25;
+    animation: gridDrift 20s linear infinite;
+  }
+
+  @keyframes gridDrift {
+    from { transform: translate(0, 0); }
+    to { transform: translate(80px, 80px); }
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 100;
+  }
+
+  .container {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    padding: 2rem;
+  }
+
+  .error-code {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(8rem, 20vw, 16rem);
+    font-weight: 400;
+    line-height: 0.85;
+    letter-spacing: -0.04em;
+    position: relative;
+    color: transparent;
+    -webkit-text-stroke: 1.5px var(--muted);
+    animation: fadeUp 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    opacity: 0;
+  }
+
+  .error-code span {
+    display: inline-block;
+    animation: glitchIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    opacity: 0;
+  }
+  .error-code span:nth-child(1) { animation-delay: 0.1s; }
+  .error-code span:nth-child(2) { animation-delay: 0.2s; color: var(--accent); -webkit-text-stroke-color: var(--accent); }
+  .error-code span:nth-child(3) { animation-delay: 0.3s; }
+
+  @keyframes glitchIn {
+    0% { opacity: 0; transform: translateY(40px) skewX(-8deg); }
+    60% { transform: translateY(-4px) skewX(2deg); }
+    100% { opacity: 1; transform: translateY(0) skewX(0); }
+  }
+
+  .divider {
+    width: 60px;
+    height: 1.5px;
+    background: var(--accent);
+    margin: 2rem auto;
+    animation: expandLine 0.8s 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    transform: scaleX(0);
+  }
+
+  @keyframes expandLine {
+    to { transform: scaleX(1); }
+  }
+
+  .message {
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.75rem;
+    animation: fadeUp 0.8s 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    opacity: 0;
+  }
+
+  .submessage {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-size: clamp(1.2rem, 3vw, 1.8rem);
+    color: var(--text);
+    max-width: 420px;
+    margin: 0 auto 2.5rem;
+    line-height: 1.4;
+    animation: fadeUp 0.8s 0.75s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    opacity: 0;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text);
+    text-decoration: none;
+    padding: 0.9rem 2rem;
+    border: 1px solid var(--muted);
+    transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    position: relative;
+    overflow: hidden;
+    animation: fadeUp 0.8s 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    opacity: 0;
+  }
+
+  .back-link::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--accent);
+    transform: translateX(-101%);
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    z-index: -1;
+  }
+
+  .back-link:hover {
+    border-color: var(--accent);
+    color: var(--bg);
+  }
+
+  .back-link:hover::before {
+    transform: translateX(0);
+  }
+
+  .back-link svg {
+    width: 16px;
+    height: 16px;
+    transition: transform 0.3s ease;
+  }
+
+  .back-link:hover svg {
+    transform: translateX(-4px);
+  }
+
+  .orb {
+    position: fixed;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,107,53,0.12) 0%, transparent 70%);
+    filter: blur(60px);
+    animation: orbFloat 8s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .orb-1 { top: 15%; left: 10%; animation-delay: 0s; }
+  .orb-2 { bottom: 10%; right: 8%; animation-delay: -4s; width: 200px; height: 200px; }
+
+  @keyframes orbFloat {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(30px, -20px); }
+  }
+
+  .corner {
+    position: fixed;
+    width: 40px;
+    height: 40px;
+    border-color: var(--muted);
+    border-style: solid;
+    opacity: 0.4;
+    z-index: 10;
+  }
+  .corner--tl { top: 24px; left: 24px; border-width: 1px 0 0 1px; }
+  .corner--tr { top: 24px; right: 24px; border-width: 1px 1px 0 0; }
+  .corner--bl { bottom: 24px; left: 24px; border-width: 0 0 1px 1px; }
+  .corner--br { bottom: 24px; right: 24px; border-width: 0 1px 1px 0; }
+</style>
+</head>
+<body>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+
+  <div class="corner corner--tl"></div>
+  <div class="corner corner--tr"></div>
+  <div class="corner corner--bl"></div>
+  <div class="corner corner--br"></div>
+
+  <div class="container">
+    <div class="error-code">
+      <span>4</span><span>0</span><span>4</span>
+    </div>
+    <div class="divider"></div>
+    <p class="message">Page not found</p>
+    <p class="submessage">Ceci n'est pas une page.</p>
+    <a href="/" class="back-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="19" y1="12" x2="5" y2="12"></line>
+        <polyline points="12 19 5 12 12 5"></polyline>
+      </svg>
+      Return home
+    </a>
+  </div>
+</body>
+</html>
